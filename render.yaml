@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: keap1-qsar-app
+    env: docker
+    rootDir: app/deploy_bundle
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: STREAMLIT_BROWSER_GATHER_USAGE_STATS
+        value: "false"
