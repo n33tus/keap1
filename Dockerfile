@@ -19,13 +19,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY requirements.txt /app/requirements.txt
 RUN pip install --upgrade pip setuptools wheel
-RUN pip install -r /app/requirements.txt
+RUN pip install --prefer-binary -r /app/requirements.txt
 
-COPY app_public.py /app/app_public.py
-COPY descriptors.xml /app/descriptors.xml
-COPY tcu_logo.png /app/tcu_logo.png
-COPY models /app/models
-COPY scaling /app/scaling
+# Copy full deploy bundle so missing optional assets don't break image build.
+COPY . /app
+RUN mkdir -p /app/models /app/scaling /app/logs
 
 EXPOSE 10000
 
